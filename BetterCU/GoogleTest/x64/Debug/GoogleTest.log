@@ -1,0 +1,32 @@
+﻿  test.cpp
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\BetterCU\Vector.h(148,1): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\BetterCU\Vector.h(144): message : while compiling class template member function 'float CommonUtilities::Vector<float,2>::Length(void)'
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\GoogleTest\test.cpp(72): message : see reference to function template instantiation 'float CommonUtilities::Vector<float,2>::Length(void)' being compiled
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\GoogleTest\test.cpp(7): message : see reference to class template instantiation 'CommonUtilities::Vector<float,2>' being compiled
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\BetterCU\Vector.h(131,1): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\BetterCU\Vector.h(139): message : see reference to function template instantiation 'void CommonUtilities::Vector<float,2>::operator /=<T>(const T &)' being compiled
+          with
+          [
+              T=float
+          ]
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\BetterCU\Vector.h(139): message : see reference to function template instantiation 'void CommonUtilities::Vector<float,2>::operator /=<T>(const T &)' being compiled
+          with
+          [
+              T=float
+          ]
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\BetterCU\Vector.h(155): message : see reference to function template instantiation 'CommonUtilities::Vector<float,2> CommonUtilities::Vector<float,2>::operator /<float>(const T &)' being compiled
+          with
+          [
+              T=float
+          ]
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\BetterCU\Vector.h(155): message : see reference to function template instantiation 'CommonUtilities::Vector<float,2> CommonUtilities::Vector<float,2>::operator /<float>(const T &)' being compiled
+          with
+          [
+              T=float
+          ]
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\BetterCU\Vector.h(154): message : while compiling class template member function 'CommonUtilities::Vector<float,2> CommonUtilities::Vector<float,2>::Normalized(void)'
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\GoogleTest\test.cpp(70): message : see reference to function template instantiation 'CommonUtilities::Vector<float,2> CommonUtilities::Vector<float,2>::Normalized(void)' being compiled
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\BetterCU\Vector.h(74): warning C4700: uninitialized local variable 'dotProduct' used
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\BetterCU\Vector.h(148): warning C4700: uninitialized local variable 'sum' used
+C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\BetterCU\Vector.h(74): warning C4700: uninitialized local variable 'dotProduct' used
+  GoogleTest.vcxproj -> C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\x64\Debug\GoogleTest.exe

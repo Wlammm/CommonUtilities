@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "..\BetterCU\Vector.h"
+#include "..\BetterCU\Vector3.hpp"
 
+#pragma region Vector
 TEST(Vector, DefaultConstructor) {
 	CU::Vector<float, 2> vector{};
 	EXPECT_EQ(0.0f, vector.Element(0));
@@ -85,3 +87,17 @@ TEST(Vector, Cast)
 	CU::Vector<int, 2> vecI = vec.Cast<int>();
 	EXPECT_TRUE(true);
 }
+#pragma endregion
+
+#pragma region Vector3
+
+TEST(Vector3, Reflect)
+{
+	CU::Vector3f vec = CU::Vector3f::Reflect({ 1, -1, 0 }, { 0, 1, 0 });
+
+	EXPECT_EQ(-1, vec.X());
+	EXPECT_EQ(1, vec.Y());
+	EXPECT_EQ(0, vec.Z());
+}
+
+#pragma endregion

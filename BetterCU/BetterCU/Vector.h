@@ -84,10 +84,10 @@ namespace CommonUtilities
 			}
 		}
 
-		inline Vector operator+(const Vector& aVector)
+		inline Vector operator+(const Vector& aVector) const
 		{
 			Vector resultVector = aVector;
-			resultVector += *this;
+			resultVector += (*this);
 			return resultVector;
 		}
 

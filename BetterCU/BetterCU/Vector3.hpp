@@ -16,6 +16,10 @@ namespace CommonUtilities
 			Vector<T, 3>{ aVector }
 		{}
 
+		Vector3(const Vector<T, 3>& aVector) :
+			Vector<T, 3>{ aVector }
+		{}
+
 		Vector3(const T& x, const T& y, const T& z) :
 			Vector<T, 3>{ x, y, z }
 		{}
@@ -57,9 +61,9 @@ namespace CommonUtilities
 			return Vector3{ Y() * vector.Z() - Z() * vector.Y(), Z() * vector.X() - X() * vector.Z(), X() * vector.Y() - Y() * vector.X() };
 		}
 
-		static Vector3 Reflect(const Vector3& anInDirection, const Vector3& aNormal)
+		static Vector3<float> Reflect(const Vector3<float>& anInDirection, const Vector3<float>& aNormal)
 		{
-			return aNormal + anInDirection * -2.f * aNormal.Dot(anInDirection);
+			return (aNormal + anInDirection) * -2.f * aNormal.Dot(anInDirection);
 		}
 	};
 
