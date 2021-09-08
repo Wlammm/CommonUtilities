@@ -9,15 +9,15 @@ namespace CommonUtilities
 	{
 	public:
 		Vector2()
-			: Vector<T, 2>{}
+			: Vector<T, 2>{}, x{ this->Element(0) }, y{ this->Element(1) }
 		{}
 
 		Vector2(const Vector2& vector) :
-			Vector<T, 2>{ vector }
+			Vector<T, 2>{ vector }, x{ this->Element(0) }, y{ this->Element(1) }
 		{}
 
 		Vector2(const T& x, const T& y) :
-			Vector<T, 2>{ x, y }
+			Vector<T, 2>{ x, y }, x{ this->Element(0) }, y{ this->Element(1) }
 		{}
 
 		~Vector2() = default;
@@ -46,6 +46,10 @@ namespace CommonUtilities
 		{
 			return "NEJ TACK";
 		}
+
+	private:
+		T& x;
+		T& y;
 	};
 
 	using Vector2f = Vector2<float>;

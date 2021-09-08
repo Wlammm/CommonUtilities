@@ -1,14 +1,18 @@
 #include <iostream>
 #include <conio.h>
-#include "Array.h"
-#include "List.hpp"
-#include "Vector2.hpp"
+#include "Math.hpp"
+#include <math.h>
+#include <chrono>
+#include "Vector3.hpp"
 
 int main()
 {
-	CU::Vector<float, 2> vector;
+	CU::Vector3f vec = { 0, 0, 0 };
+	CU::Vector3f vec1 = { 1, 1, 1 };
+	
+	CU::Vector3f lerped = CU::Vector3f::SmoothStep(vec, vec1, 0.8f);
 
-	std::cout << vector.Element(0) << std::endl;
+	std::cout << "X: " << lerped.X() << " Y: " << lerped.Y() << " Z: " << lerped.Z();
 
 	_getch();
 	return 0;

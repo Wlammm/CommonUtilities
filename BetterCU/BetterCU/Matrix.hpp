@@ -64,12 +64,12 @@ namespace CommonUtilities
 
 		inline const Array<T, columns>& operator[](const int& aRow) const
 		{
-			return myElements[rows];
+			return myElements[aRow];
 		}
 
 		inline Array<T, columns>& operator[](const int& aRow)
 		{
-			return myElements[rows];
+			return myElements[aRow];
 		}
 
 		bool operator==(const Matrix& aMatrix) const

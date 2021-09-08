@@ -2,6 +2,7 @@
 
 #include "Array.h"
 #include "Matrix.hpp"
+#include "Math.hpp"
 
 namespace CommonUtilities
 {
@@ -49,9 +50,10 @@ namespace CommonUtilities
 		inline Matrix<size, 1, T> AsColumnMatrix()
 		{
 			Matrix<size, 1, T> matrix{};
+			int g = size;
 			for (int i = 0; i < size; ++i)
 			{
-				matrix[i][0] = (*this)[i];
+				matrix[i][0] = Element(i);
 			}
 			return matrix;
 		}
@@ -68,7 +70,7 @@ namespace CommonUtilities
 
 		T Dot(const Vector& aVector) const
 		{
-			T dotProduct;
+			T dotProduct = 0;
 			for (int i = 0; i < size; ++i)
 			{
 				dotProduct += (*this)[i] * aVector[i];
@@ -116,7 +118,7 @@ namespace CommonUtilities
 		}
 
 		template<typename T>
-		inline Vector operator*(const T& aScalar)
+		inline Vector operator*(const T& aScalar) const
 		{
 			Vector resultVector = *this;
 			resultVector *= aScalar;
@@ -142,7 +144,7 @@ namespace CommonUtilities
 
 		float Length()
 		{
-			float sum;
+			float sum = 0;
 			for (int i = 0; i < size; ++i)
 			{
 				sum += pow(Element(i), 2);
@@ -153,6 +155,30 @@ namespace CommonUtilities
 		Vector<T, size> Normalized()
 		{
 			return (*this) / Length();
+		}
+
+		static Vector<T, size> Lerp(const Vector<T, size>& aFirstVector, const Vector<T, size>& aSecondVector, const float& aTime)
+		{
+			Vector<T, size> retVector;
+
+			for (int i = 0; i < size; ++i)
+			{
+				retVector.Element(i) = CU::Lerp(aFirstVector.Element(i), aSecondVector.Element(i), aTime);
+			}
+
+			return retVector;
+		}
+
+		static Vector<T, size> SmoothStep(const Vector<T, size>& aFirstVector, const Vector<T, size>& aSecondVector, const float& aTime)
+		{
+			Vector<T, size> retVector;
+
+			for (int i = 0; i < size; ++i)
+			{
+				retVector.Element(i) = CU::SmoothStep(aFirstVector.Element(i), aSecondVector.Element(i), aTime);
+			}
+
+			return retVector;
 		}
 
 		template<typename T>

@@ -9,62 +9,67 @@ namespace CommonUtilities
 	{
 	public:
 		Vector3() :
-			Vector<T, 3>{}
+			Vector<T, 3>{}, x{ this->Element(0) }, y{ this->Element(1) }, z{ this->Element(2) }
 		{}
 
 		Vector3(const Vector3& aVector) :
-			Vector<T, 3>{ aVector }
+			Vector<T, 3>{ aVector }, x{ this->Element(0) }, y{ this->Element(1) }, z{ this->Element(2) }
 		{}
 
 		Vector3(const Vector<T, 3>& aVector) :
-			Vector<T, 3>{ aVector }
+			Vector<T, 3>{ aVector }, x{ this->Element(0) }, y{ this->Element(1) }, z{ this->Element(2) }
 		{}
 
 		Vector3(const T& x, const T& y, const T& z) :
-			Vector<T, 3>{ x, y, z }
+			Vector<T, 3>{ x, y, z }, x{ this->Element(0) }, y{ this->Element(1) }, z{ this->Element(2) }
 		{}
 
 		~Vector3() = default;
 
 		inline T& X()
 		{
-			return Element(0);
+			return this->Element(0);
 		}
 
 		inline const T& X() const
 		{
-			return Element(0);
+			return this->Element(0);
 		}
 
 		inline T& Y()
 		{
-			return Element(1);
+			return this->Element(1);
 		}
 
 		inline const T& Y() const
 		{
-			return Element(1);
+			return this->Element(1);
 		}
 
 		inline T& Z()
 		{
-			return Element(2);
+			return this->Element(2);
 		}
 
 		inline const T& Z() const
 		{
-			return Element(2);
+			return this->Element(2);
 		}
 
 		Vector3 Cross(const Vector3& aVector)
 		{
-			return Vector3{ Y() * vector.Z() - Z() * vector.Y(), Z() * vector.X() - X() * vector.Z(), X() * vector.Y() - Y() * vector.X() };
+			return Vector3{ Y() * aVector.Z() - Z() * aVector.Y(), Z() * aVector.X() - X() * aVector.Z(), X() * aVector.Y() - Y() * aVector.X() };
 		}
 
-		static Vector3<float> Reflect(const Vector3<float>& anInDirection, const Vector3<float>& aNormal)
+		static Vector3<float> Reflect(const Vector3<float>& aDirection, const Vector3<float>& aNormal)
 		{
-			return (aNormal + anInDirection) * -2.f * aNormal.Dot(anInDirection);
+			return aNormal * (-2.f * aNormal.Dot(aDirection)) + aDirection;
 		}
+
+	private:
+		T& x;
+		T& y;
+		T& z;
 	};
 
 	using Vector3f = Vector3<float>;

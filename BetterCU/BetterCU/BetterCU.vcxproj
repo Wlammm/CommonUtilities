@@ -144,10 +144,13 @@
   <ItemGroup>
     <ClInclude Include="Array.h" />
     <ClInclude Include="List.hpp" />
+    <ClInclude Include="Math.hpp" />
     <ClInclude Include="Matrix.hpp" />
+    <ClInclude Include="Random.hpp" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />
+    <ClInclude Include="Vector4.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
