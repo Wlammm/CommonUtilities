@@ -67,6 +67,13 @@ namespace CommonUtilities
 	}
 
 	template<typename T>
+	const T Round(const T& aVal, const int& aDeci)
+	{
+		assert(aDeci < 9 && "Cant round to more than 8 decimals.");
+		return static_cast<T>(static_cast<int>(aVal * static_cast<T>(pow(10, aDeci)) + static_cast<T>(0.5f))) / static_cast<T>(pow(10, aDeci));
+	}
+
+	template<typename T>
 	const T Mod(const T& aVal, const T& aMod)
 	{
 		T rest = aVal;
@@ -77,8 +84,6 @@ namespace CommonUtilities
 
 		return rest;
 	}
-
-
 
 	template<typename T>
 	const T Ceil(const T& aVal)
@@ -94,6 +99,8 @@ namespace CommonUtilities
 	{
 		return static_cast<T>(static_cast<int>(aVal));
 	}
+
+
 }
 
 namespace CU = CommonUtilities;

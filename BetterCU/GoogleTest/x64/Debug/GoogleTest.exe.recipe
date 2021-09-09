@@ -2,10 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\willi\Documents\GitHub\Engine\CommonUtilities\BetterCU\x64\Debug\BetterCU.exe</FullPath>
+      <FullPath>C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\x64\Debug\BetterCU.exe</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>C:\Users\willi\Documents\GitHub\Engine\CommonUtilities\BetterCU\x64\Debug\GoogleTest.exe</FullPath>
+      <FullPath>C:\Users\william.arnback\Documents\GitHub\CommonUtilities\BetterCU\x64\Debug\GoogleTest.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

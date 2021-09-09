@@ -4,15 +4,21 @@
 
 namespace CommonUtilities
 {
-	using MatrixDefaultType = float;
-
-	template<int rows, int columns, typename T = MatrixDefaultType>
+	template<int rows, int columns, typename T = float>
 	class Matrix
 	{
 	public:
 		Matrix()
 		{
 			myElements = {};
+			
+			for (int i = 0; i < rows; ++i)
+			{
+				for (int j = 0; j < columns; ++j)
+				{
+					myElements[i][j] = 0;
+				}
+			}
 		}
 
 		Matrix(const Matrix& aMatrix)
@@ -45,7 +51,7 @@ namespace CommonUtilities
 			{
 				for (int j = 0; j < columns; ++j)
 				{
-					newMatrix[j][i] = myElements[i, j];
+					newMatrix[j][i] = myElements[i][j];
 				}
 			}
 
@@ -54,11 +60,13 @@ namespace CommonUtilities
 
 		const T& operator()(const int& aRow, const int& aColumn) const
 		{
+			assert(aRow > -1 && aRow < rows && aColumn > -1 && aColumn < columns && "Out of bounds");
 			return myElements[aRow][aColumn];
 		}
 
 		T& operator()(const int& aRow, const int& aColumn)
 		{
+			assert(aRow > -1 && aRow < rows && aColumn > -1 && aColumn < columns && "Out of bounds");
 			return myElements[aRow][aColumn];
 		}
 
@@ -93,13 +101,13 @@ namespace CommonUtilities
 			return !(*this == aMatrix);
 		}
 
-		void operator+=(const Matrix& aMatrix) const
+		void operator+=(const Matrix& aMatrix)
 		{
 			for (int i = 0; i < rows; ++i)
 			{
 				for (int j = 0; j < columns; ++j)
 				{
-					myElements[i][j] += aMatrix.elements[i][j];
+					myElements[i][j] += aMatrix.myElements[i][j];
 				}
 			}
 		}
@@ -124,9 +132,9 @@ namespace CommonUtilities
 
 		inline Matrix operator-(const Matrix& aMatrix) const
 		{
-			Matrix newMatrix = aMatrix;
-			newMatrix -= *this;
-			return newMatrix;
+			Matrix returnMatrix = (*this);
+			returnMatrix -= aMatrix;
+			return returnMatrix;
 		}
 
 		template <typename N>
@@ -186,10 +194,10 @@ namespace CommonUtilities
 			return newMatrix;
 		}
 
-		template<int size, typename T = MatrixDefaultType>
+		template<int size, typename T = float>
 		using SquareMatrix = Matrix<size, size, T>;
 
-		template<int size, typename T = MatrixDefaultType>
+		template<int size, typename T = float>
 		static SquareMatrix<size, T> IdentityMatrix()
 		{
 			SquareMatrix<size, T> matrix{};
@@ -200,7 +208,7 @@ namespace CommonUtilities
 			return matrix;
 		}
 
-		template<int size, typename T = MatrixDefaultType>
+		template<int size, typename T = float>
 		static SquareMatrix<size, T> CreateRotationAroundX(const T& anAngleInRadians)
 		{
 			assert(size > 2 && size < 5 && "Rotation only works for 3x3 and 4x4 matrixes");
@@ -215,7 +223,7 @@ namespace CommonUtilities
 			return tempMatrix;
 		}
 
-		template<int size, typename T = MatrixDefaultType>
+		template<int size, typename T = float>
 		static SquareMatrix<size, T> CreateRotationAroundY(const T& anAngleInRadians)
 		{
 			assert(size > 2 && size < 5 && "Rotation only works for 3x3 and 4x4 matrixes");
@@ -230,7 +238,7 @@ namespace CommonUtilities
 			return tempMatrix;
 		}
 
-		template<int size, typename T = MatrixDefaultType>
+		template<int size, typename T = float>
 		static SquareMatrix<size, T> CreateRotationAroundZ(const T& anAngleInRadians)
 		{
 			assert(size > 2 && size < 5 && "Rotation only works for 3x3 and 4x4 matrixes");
@@ -249,10 +257,10 @@ namespace CommonUtilities
 		Array<Array<T, columns>, rows> myElements;
 	};
 
-	template <typename type = MatrixDefaultType>
+	template <typename type = float>
 	using Matrix4x4 = Matrix<4, 4, type>;
 
-	template <typename type = MatrixDefaultType>
+	template <typename type = float>
 	using Matrix3x3 = Matrix<3, 3, type>;
 }
 

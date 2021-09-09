@@ -2,9 +2,20 @@
 
 #include <random>
 #include "Math.hpp"
+#include <time.h>
 
 namespace CommonUtilities
 {
+	void SetSeed(const int& aSeed)
+	{
+		srand(aSeed);
+	}
+
+	void RandomizeSeed()
+	{
+		srand(time(0));
+	}
+
 	const int RandomInt(const int& aMin, const int& aMax)
 	{
 		return CU::Mod(rand(), (aMax - aMin + 1)) + aMin;
