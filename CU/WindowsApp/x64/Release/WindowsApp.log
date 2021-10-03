@@ -1,0 +1,9 @@
+﻿  guicon.cpp
+C:\Users\willi\Desktop\CU\WindowsApp\guicon.cpp(23,52): warning C4311: 'type cast': pointer truncation from 'HANDLE' to 'long'
+C:\Users\willi\Desktop\CU\WindowsApp\guicon.cpp(23,52): warning C4302: 'type cast': truncation from 'HANDLE' to 'long'
+C:\Users\willi\Desktop\CU\WindowsApp\guicon.cpp(29,51): warning C4311: 'type cast': pointer truncation from 'HANDLE' to 'long'
+C:\Users\willi\Desktop\CU\WindowsApp\guicon.cpp(29,51): warning C4302: 'type cast': truncation from 'HANDLE' to 'long'
+C:\Users\willi\Desktop\CU\WindowsApp\guicon.cpp(35,51): warning C4311: 'type cast': pointer truncation from 'HANDLE' to 'long'
+C:\Users\willi\Desktop\CU\WindowsApp\guicon.cpp(35,51): warning C4302: 'type cast': truncation from 'HANDLE' to 'long'
+  WindowsApp.cpp
+C:\Users\willi\Desktop\CU\WindowsApp\WindowsApp.cpp(9,10): fatal error C1083: Cannot open include file: 'Input.h': No such file or directory

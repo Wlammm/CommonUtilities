@@ -1,0 +1,4 @@
+﻿  TestProject.cpp
+C:\Users\willi\Desktop\CU\CommonUtilities\BSTNode.hpp(34,2): warning C4812: obsolete declaration style: please use 'CommonUtilities::BSTSetNode<T>::BSTSetNode' instead
+C:\Users\willi\Desktop\CU\CommonUtilities\BSTNode.hpp(93): warning C4715: 'CommonUtilities::BSTSetNode<int>::Insert': not all control paths return a value
+  TestProject.vcxproj -> C:\Users\willi\Desktop\CU\x64\Debug\TestProject.dll

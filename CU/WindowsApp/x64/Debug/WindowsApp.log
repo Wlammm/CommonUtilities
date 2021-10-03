@@ -1,0 +1,13 @@
+﻿  guicon.cpp
+C:\Users\willi\Desktop\CU\WindowsApp\guicon.cpp(23,52): warning C4311: 'type cast': pointer truncation from 'HANDLE' to 'long'
+C:\Users\willi\Desktop\CU\WindowsApp\guicon.cpp(23,52): warning C4302: 'type cast': truncation from 'HANDLE' to 'long'
+C:\Users\willi\Desktop\CU\WindowsApp\guicon.cpp(29,51): warning C4311: 'type cast': pointer truncation from 'HANDLE' to 'long'
+C:\Users\willi\Desktop\CU\WindowsApp\guicon.cpp(29,51): warning C4302: 'type cast': truncation from 'HANDLE' to 'long'
+C:\Users\willi\Desktop\CU\WindowsApp\guicon.cpp(35,51): warning C4311: 'type cast': pointer truncation from 'HANDLE' to 'long'
+C:\Users\willi\Desktop\CU\WindowsApp\guicon.cpp(35,51): warning C4302: 'type cast': truncation from 'HANDLE' to 'long'
+  WindowsApp.cpp
+  Generating Code...
+CommonUtilities.lib(Input.obj) : warning LNK4099: PDB 'CommonUtilities.pdb' was not found with 'CommonUtilities.lib(Input.obj)' or at 'C:\Users\willi\Desktop\CU\x64\Debug\CommonUtilities.pdb'; linking object as if no debug info
+CommonUtilities.lib(pch.obj) : warning LNK4099: PDB 'CommonUtilities.pdb' was not found with 'CommonUtilities.lib(pch.obj)' or at 'C:\Users\willi\Desktop\CU\x64\Debug\CommonUtilities.pdb'; linking object as if no debug info
+CommonUtilities.lib(Point.obj) : warning LNK4099: PDB '' was not found with 'CommonUtilities.lib(Point.obj)' or at ''; linking object as if no debug info
+  WindowsApp.vcxproj -> C:\Users\willi\Desktop\CU\x64\Debug\WindowsApp.exe

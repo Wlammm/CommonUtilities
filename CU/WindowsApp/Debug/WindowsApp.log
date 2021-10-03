@@ -1,0 +1,3 @@
+﻿  WindowsApp.cpp
+E:\Uppgifter\C++ Fördjupning\CU\WindowsApp\WindowsApp.cpp(80,13): warning C4065: switch statement contains 'default' but no 'case' labels
+  WindowsApp.vcxproj -> E:\Uppgifter\C++ Fördjupning\CU\Debug\WindowsApp.exe

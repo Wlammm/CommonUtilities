@@ -1,0 +1,11 @@
+﻿  pch.cpp
+  TestProject.cpp
+C:\Users\willi\Desktop\CU\CommonUtilities\BSTNode.hpp(34,2): warning C4812: obsolete declaration style: please use 'CommonUtilities::BSTSetNode<T>::BSTSetNode' instead
+  TestUtilities.cpp
+     Creating library C:\Users\willi\Desktop\CU\x64\Release\TestProject.lib and object C:\Users\willi\Desktop\CU\x64\Release\TestProject.exp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+C:\Users\willi\Desktop\CU\CommonUtilities\BSTNode.hpp(93): warning C4715: 'CommonUtilities::BSTSetNode<int>::Insert': not all control paths return a value
+  All 167 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  TestProject.vcxproj -> C:\Users\willi\Desktop\CU\x64\Release\TestProject.dll
