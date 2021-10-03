@@ -1,432 +1,479 @@
 #pragma once
-#include "Vector.h"
-#include <assert.h>
-#include <math.h>
+
+#include "Matrix3x3.hpp"
+
+namespace CommonUtilities
+{
+	template<class T>
+	class Vector4;
+
+	template<class T>
+	class Vector3;
+
+	template<class T>
+	class Matrix4x4
+	{
+	public:
+		Matrix4x4<T>();
+		Matrix4x4<T>(
+			const T m11, const T m12, const T m13, const T m14,
+			const T m21, const T m22, const T m23, const T m24,
+			const T m31, const T m32, const T m33, const T m34,
+			const T m41, const T m42, const T m43, const T m44
+			);
+		Matrix4x4<T>(const Matrix4x4<T>& aMatrix);
+
+		T& operator()(const int aRow, const int aColumn);
+		const T& operator()(const int aRow, const int aColumn) const;
+		Matrix4x4<T>& operator=(const Matrix4x4<T>& aMatrix);
+
+		Vector4<T> GetRow(const int aRow) const;
+		void SetRow(const int aRow, const Vector4<T>& aValue);
+		Vector4<T> GetColumn(const int aColumn) const;
+		void SetColumn(const int aColumn, const Vector4<T>& aValue);
+
+		T Minor(const int aX, const int aY) const;
+		T Cofactor(const int aX, const int aY) const;
+		T Determinant() const;
+		Matrix4x4<T> Cofactors() const;
+		Matrix4x4<T> Adjoint() const;
+		Matrix4x4<T> Inverse() const;
+		static Matrix4x4<T> Transpose(const Matrix4x4<T>& aMatrixToTranspose);
+		static Matrix4x4<T> GetFastInverse(const Matrix4x4<T>& aTransform);
+
+		static Matrix4x4<T> CreateRotationAroundX(T aAngleInRadians);
+		static Matrix4x4<T> CreateRotationAroundY(T aAngleInRadians);
+		static Matrix4x4<T> CreateRotationAroundZ(T aAngleInRadians);
+		static Matrix4x4<T> CreateTranslation(const Vector3<T>& aPosition);
+		static Matrix4x4<T> CreateRotation(const Vector3<T>& aRotation);
+		static Matrix4x4<T> CreateScale(const Vector3<T>& aScale);
+		static Matrix4x4<T> TRS(const Vector3<T>& aTranslation, const Vector3<T>& aRotation, const Vector3<T>& aScale);
+
+	private:
+		T myData[4][4];
+	};
+
+	template <class T>
+	bool operator==(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1);
+	template <class T>
+	bool operator!=(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1);
+
+	using Matrix4x4f = Matrix4x4<float>;
+}
 
 namespace CommonUtilities
 {
 	template <class T>
-	class Matrix4x4
+	Matrix4x4<T>::Matrix4x4() :
+		myData{
+			{ 1, 0, 0, 0 },
+			{ 0, 1, 0, 0 },
+			{ 0, 0, 1, 0 },
+			{ 0, 0, 0, 1 },
+	}
 	{
-	public:
-		// Creates the identity matrix.
-		Matrix4x4<T>();
-		// Copy Constructor.
-		Matrix4x4<T>(const Matrix4x4<T>& aMatrix);
-		// () operator for accessing element (row, column) for read/write or read, respectively.
-		T& operator()(const int aRow, const int aColumn);
-		const T& operator()(const int aRow, const int aColumn) const;
-		Matrix4x4<T> operator+(const Matrix4x4<T>& aMatrix);
-		void operator+=(const Matrix4x4<T>& aMatrix);
-		Matrix4x4<T> operator-(const Matrix4x4<T>& aMatrix);
-		void operator-=(const Matrix4x4<T>& aMatrix);
-		Matrix4x4<T> operator*(const Matrix4x4<T>& aMatrix);
-		void operator*=(const Matrix4x4<T>& aMatrix);
-		void operator=(const Matrix4x4<T>& aMatrix);
-		// Static functions for creating rotation matrices.
-		static Matrix4x4<T> CreateRotationAroundX(T aAngleInRadians);
-		static Matrix4x4<T> CreateRotationAroundY(T aAngleInRadians);
-		static Matrix4x4<T> CreateRotationAroundZ(T aAngleInRadians);
-		// Static function for creating a transpose of a matrix.
-		static Matrix4x4<T> Transpose(const Matrix4x4<T>& aMatrixToTranspose);
-		// Assumes aTransform is made up of nothing but rotations and translations.
-		static Matrix4x4<T> GetFastInverse(const Matrix4x4<T>& aTransform);
+	}
 
-	private:
-		Vector4<T> myRow1;
-		Vector4<T> myRow2;
-		Vector4<T> myRow3;
-		Vector4<T> myRow4;
+	template <class T>
+	Matrix4x4<T>::Matrix4x4(
+		const T m11, const T m12, const T m13, const T m14,
+		const T m21, const T m22, const T m23, const T m24,
+		const T m31, const T m32, const T m33, const T m34,
+		const T m41, const T m42, const T m43, const T m44
+	) :
+		myData{
+			{ m11, m12, m13, m14 },
+			{ m21, m22, m23, m24 },
+			{ m31, m32, m33, m34 },
+			{ m41, m42, m43, m44 },
+	}
+	{
+	}
+
+	template <class T>
+	Matrix4x4<T>::Matrix4x4(const Matrix4x4<T>& aMatrix) :
+		myData{
+			{ aMatrix(1, 1), aMatrix(1, 2), aMatrix(1, 3), aMatrix(1, 4) },
+			{ aMatrix(2, 1), aMatrix(2, 2), aMatrix(2, 3), aMatrix(2, 4) },
+			{ aMatrix(3, 1), aMatrix(3, 2), aMatrix(3, 3), aMatrix(3, 4) },
+			{ aMatrix(4, 1), aMatrix(4, 2), aMatrix(4, 3), aMatrix(4, 4) }
+	}
+	{
 	};
-	template<class T>
-	inline T& Matrix4x4<T>::operator()(const int aRow, const int aColumn)
+
+	template <class T>
+	T& Matrix4x4<T>::operator()(const int aRow, const int aColumn)
 	{
-		switch (aRow)
+		return myData[aRow - 1][aColumn - 1];
+	}
+
+	template <class T>
+	const T& Matrix4x4<T>::operator()(const int aRow, const int aColumn) const
+	{
+		return myData[aRow - 1][aColumn - 1];
+	}
+
+	template <class T>
+	void Matrix4x4<T>::SetRow(const int aRow, const Vector4<T>& aValue)
+	{
+		(*this)(aRow, 1) = aValue.x;
+		(*this)(aRow, 2) = aValue.y;
+		(*this)(aRow, 3) = aValue.z;
+		(*this)(aRow, 4) = aValue.w;
+	}
+
+	template <class T>
+	void Matrix4x4<T>::SetColumn(const int aColumn, const Vector4<T>& aValue)
+	{
+		(*this)(1, aColumn) = aValue.x;
+		(*this)(2, aColumn) = aValue.y;
+		(*this)(3, aColumn) = aValue.z;
+		(*this)(4, aColumn) = aValue.w;
+	}
+
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::CreateRotationAroundX(T aAngleInRadians)
+	{
+		const T& a = aAngleInRadians;
+		return Matrix4x4<T>(
+			1, 0, 0, 0,
+			0, std::cos(a), -std::sin(a), 0,
+			0, std::sin(a), std::cos(a), 0,
+			0, 0, 0, 1
+			);
+	}
+
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::CreateRotationAroundY(T aAngleInRadians)
+	{
+		const T& a = aAngleInRadians;
+		return Matrix4x4<T>(
+			std::cos(a), 0, std::sin(a), 0,
+			0, 1, 0, 0,
+			-std::sin(a), 0, std::cos(a), 0,
+			0, 0, 0, 1
+			);
+	}
+
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::CreateRotationAroundZ(T aAngleInRadians)
+	{
+		const T& a = aAngleInRadians;
+		return Matrix4x4<T>(
+			std::cos(a), -std::sin(a), 0, 0,
+			std::sin(a), std::cos(a), 0, 0,
+			0, 0, 1, 0,
+			0, 0, 0, 1
+			);
+	}
+
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::Transpose(const Matrix4x4<T>& aMatrixToTranspose)
+	{
+		Matrix4x4<T> result;
+
+		for (int row = 1; row <= 4; row++)
 		{
-		case 1:
-			switch (aColumn)
+			for (int col = 1; col <= 4; col++)
 			{
-			case 1:
-				return myRow1.x;
-				break;
-			case 2:
-				return myRow1.y;
-				break;
-			case 3:
-				return myRow1.z;
-				break;
-			case 4:
-				return myRow1.w;
-				break;
-			default:
-				assert(aColumn < 5 && aColumn > 0 && "Out of bounds.");
-				break;
+				result(col, row) = aMatrixToTranspose(row, col);
 			}
-			break;
-		case 2:
-			switch (aColumn)
+		}
+
+		return result;
+	}
+
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::GetFastInverse(const Matrix4x4<T>& aTransform)
+	{
+		const Matrix4x4<T>& m4 = aTransform;
+		Matrix3x3<T> m3(m4);
+		m3 = Matrix3x3<T>::Transpose(m3);
+		Vector3<T> t(-m4(4, 1), -m4(4, 2), -m4(4, 3));
+		t *= m3;
+
+		return Matrix4x4<T>(
+			m3(1, 1), m3(1, 2), m3(1, 3), 0,
+			m3(2, 1), m3(2, 2), m3(2, 3), 0,
+			m3(3, 1), m3(3, 2), m3(3, 3), 0,
+			t[0], t[1], t[2], 1
+			);
+	}
+
+	template <class T>
+	Vector4<T> Matrix4x4<T>::GetRow(const int aRow) const
+	{
+		return Vector4<T>((*this)(aRow, 1), (*this)(aRow, 2), (*this)(aRow, 3), (*this)(aRow, 4));
+	}
+	template <class T>
+	Vector4<T> Matrix4x4<T>::GetColumn(const int aColumn) const
+	{
+		return Vector4<T>((*this)(1, aColumn), (*this)(2, aColumn), (*this)(3, aColumn), (*this)(4, aColumn));
+	}
+
+
+	template <class T>
+	Matrix4x4<T> operator+(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1)
+	{
+		Matrix4x4<T> result(aMatrix0);
+		result += aMatrix1;
+		return result;
+	}
+
+	template <class T>
+	Matrix4x4<T> operator-(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1)
+	{
+		Matrix4x4<T> result(aMatrix0);
+		result -= aMatrix1;
+		return result;
+	}
+
+	template <class T>
+	Matrix4x4<T> operator*(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1)
+	{
+		Matrix4x4<T> result(aMatrix0);
+		result *= aMatrix1;
+		return result;
+	}
+
+	template <class T>
+	Vector4<T> operator*(const Vector4<T>& aVector, const Matrix4x4<T>& aMatrix)
+	{
+		Vector4<T> result(aVector);
+		result *= aMatrix;
+		return result;
+	}
+
+	template <class T>
+	Matrix4x4<T> operator*(const Matrix4x4<T>& aMatrix, const T aScalar)
+	{
+		Matrix4x4<T> result(aMatrix);
+		result *= aScalar;
+		return result;
+	}
+
+	template <class T>
+	void operator+=(Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1)
+	{
+		for (int row = 1; row <= 4; row++)
+		{
+			for (int col = 1; col <= 4; col++)
 			{
-			case 1:
-				return myRow2.x;
-				break;
-			case 2:
-				return myRow2.y;
-				break;
-			case 3:
-				return myRow2.z;
-				break;
-			case 4:
-				return myRow2.w;
-				break;
-			default:
-				assert(aColumn < 5 && aColumn > 0 && "Out of bounds.");
-				break;
+				aMatrix0(row, col) += aMatrix1(row, col);
 			}
-			break;
-		case 3:
-			switch (aColumn)
-			{
-			case 1:
-				return myRow3.x;
-				break;
-			case 2:
-				return myRow3.y;
-				break;
-			case 3:
-				return myRow3.z;
-				break;
-			case 4:
-				return myRow3.w;
-				break;
-			default:
-				assert(aColumn < 5 && aColumn > 0 && "Out of bounds.");
-				break;
-			}
-			break;
-		case 4:
-			switch (aColumn)
-			{
-			case 1:
-				return myRow4.x;
-				break;
-			case 2:
-				return myRow4.y;
-				break;
-			case 3:
-				return myRow4.z;
-				break;
-			case 4:
-				return myRow4.w;
-				break;
-			default:
-				assert(aColumn < 5 && aColumn > 0 && "Out of bounds.");
-				break;
-			}
-			break;
-		default:
-			assert(aRow < 5 && aRow > 0 && "Out of bounds.");
-			break;
 		}
 	}
-	template<class T>
-	inline const T& Matrix4x4<T>::operator()(const int aRow, const int aColumn) const
+
+	template <class T>
+	void operator-=(Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1)
 	{
-		switch (aRow)
+		for (int row = 1; row <= 4; row++)
 		{
-		case 1:
-			switch (aColumn)
+			for (int col = 1; col <= 4; col++)
 			{
-			case 1:
-				return myRow1.x;
-				break;
-			case 2:
-				return myRow1.y;
-				break;
-			case 3:
-				return myRow1.z;
-				break;
-			case 4:
-				return myRow1.w;
-				break;
-			default:
-				assert(aColumn < 5 && aColumn > 0 && "Out of bounds.");
-				break;
+				aMatrix0(row, col) -= aMatrix1(row, col);
 			}
-			break;
-		case 2:
-			switch (aColumn)
-			{
-			case 1:
-				return myRow2.x;
-				break;
-			case 2:
-				return myRow2.y;
-				break;
-			case 3:
-				return myRow2.z;
-				break;
-			case 4:
-				return myRow2.w;
-				break;
-			default:
-				assert(aColumn < 5 && aColumn > 0 && "Out of bounds.");
-				break;
-			}
-			break;
-		case 3:
-			switch (aColumn)
-			{
-			case 1:
-				return myRow3.x;
-				break;
-			case 2:
-				return myRow3.y;
-				break;
-			case 3:
-				return myRow3.z;
-				break;
-			case 4:
-				return myRow3.w;
-				break;
-			default:
-				assert(aColumn < 5 && aColumn > 0 && "Out of bounds.");
-				break;
-			}
-			break;
-		case 4:
-			switch (aColumn)
-			{
-			case 1:
-				return myRow4.x;
-				break;
-			case 2:
-				return myRow4.y;
-				break;
-			case 3:
-				return myRow4.z;
-				break;
-			case 4:
-				return myRow4.w;
-				break;
-			default:
-				assert(aColumn < 5 && aColumn > 0 && "Out of bounds.");
-				break;
-			}
-			break;
-		default:
-			assert(aRow < 5 && aRow > 0 && "Out of bounds.");
-			break;
 		}
 	}
-	template<class T>
-	inline Matrix4x4<T> Matrix4x4<T>::CreateRotationAroundX(T aAngleInRadians)
+
+	template <class T>
+	void operator*=(Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1)
 	{
-		Matrix4x4<T> tempMatrix;
-		tempMatrix.myRow2.y = cos(aAngleInRadians);
-		tempMatrix.myRow2.z = sin(aAngleInRadians);
-
-		tempMatrix.myRow3.y = -sin(aAngleInRadians);
-		tempMatrix.myRow3.z = cos(aAngleInRadians);
-
-		return tempMatrix;
-	}
-	template<class T>
-	inline Matrix4x4<T> Matrix4x4<T>::CreateRotationAroundY(T aAngleInRadians)
-	{
-		Matrix4x4<T> tempMatrix;
-		tempMatrix.myRow1.x = cos(aAngleInRadians);
-		tempMatrix.myRow1.z = -sin(aAngleInRadians);
-
-		tempMatrix.myRow3.x = sin(aAngleInRadians);
-		tempMatrix.myRow3.z = cos(aAngleInRadians);
-
-		return tempMatrix;
-	}
-	template<class T>
-	inline Matrix4x4<T> Matrix4x4<T>::CreateRotationAroundZ(T aAngleInRadians)
-	{
-		Matrix4x4<T> tempMatrix;
-		tempMatrix.myRow1.x = cos(aAngleInRadians);
-		tempMatrix.myRow1.y = sin(aAngleInRadians);
-
-		tempMatrix.myRow2.x = -sin(aAngleInRadians);
-		tempMatrix.myRow2.y = cos(aAngleInRadians);
-
-		return tempMatrix;
-	}
-	template<class T>
-	inline Matrix4x4<T> Matrix4x4<T>::Transpose(const Matrix4x4<T>& aMatrixToTranspose)
-	{
-		Vector4<T> column1(aMatrixToTranspose.myRow1.x, aMatrixToTranspose.myRow2.x, aMatrixToTranspose.myRow3.x, aMatrixToTranspose.myRow4.x);
-		Vector4<T> column2(aMatrixToTranspose.myRow1.y, aMatrixToTranspose.myRow2.y, aMatrixToTranspose.myRow3.y, aMatrixToTranspose.myRow4.y);
-		Vector4<T> column3(aMatrixToTranspose.myRow1.z, aMatrixToTranspose.myRow2.z, aMatrixToTranspose.myRow3.z, aMatrixToTranspose.myRow4.z);
-		Vector4<T> column4(aMatrixToTranspose.myRow1.w, aMatrixToTranspose.myRow2.w, aMatrixToTranspose.myRow3.w, aMatrixToTranspose.myRow4.w);
-
-		Matrix4x4<T> tempMatrix;
-		tempMatrix.myRow1 = column1;
-		tempMatrix.myRow2 = column2;
-		tempMatrix.myRow3 = column3;
-		tempMatrix.myRow4 = column4;
-		return tempMatrix;
-	}
-
-	template<class T>
-	inline Matrix4x4<T> Matrix4x4<T>::GetFastInverse(const Matrix4x4<T>& aTransform)
-	{
-		Matrix4x4 tempMatrix = Transpose(aTransform);
-
-		Vector4<T> translation;
-		translation.x = -aTransform(4, 1);
-		translation.y = -aTransform(4, 2);
-		translation.z = -aTransform(4, 3);
-		translation.w = 0;
-
-		tempMatrix(1, 4) = 0;
-		tempMatrix(2, 4) = 0;
-		tempMatrix(3, 4) = 0;
-		tempMatrix(4, 4) = 1;
-
-		translation = translation * tempMatrix;
-
-		Matrix4x4 returnMatrix;
-		returnMatrix.myRow1 = tempMatrix.myRow1;
-		returnMatrix.myRow2 = tempMatrix.myRow2;
-		returnMatrix.myRow3 = tempMatrix.myRow3;
-		returnMatrix.myRow4 = translation;
-		returnMatrix(1, 4) = aTransform(1, 4);
-		returnMatrix(2, 4) = aTransform(2, 4);
-		returnMatrix(3, 4) = aTransform(3, 4);
-		returnMatrix(4, 4) = aTransform(4, 4);
-
-		return returnMatrix;
-	}
-
-
-
-	template<class T>
-	inline Matrix4x4<T>::Matrix4x4()
-	{
-		myRow1.x = 1;
-		myRow2.x = 0;
-		myRow3.x = 0;
-		myRow4.x = 0;
-
-		myRow1.y = 0;
-		myRow2.y = 1;
-		myRow3.y = 0;
-		myRow4.y = 0;
-
-		myRow1.z = 0;
-		myRow2.z = 0;
-		myRow3.z = 1;
-		myRow4.z = 0;
-
-		myRow1.w = 0;
-		myRow2.w = 0;
-		myRow3.w = 0;
-		myRow4.w = 1;
-	}
-	template<class T>
-	inline Matrix4x4<T>::Matrix4x4(const Matrix4x4<T>& aMatrix)
-	{
-		*this = aMatrix;
-	}
-	template<class T>
-	inline Matrix4x4<T> Matrix4x4<T>::operator+(const Matrix4x4<T>& aMatrix)
-	{
-		Matrix4x4<T> tempMatrix;
-		tempMatrix.myRow1 = this->myRow1 + aMatrix.myRow1;
-		tempMatrix.myRow2 = this->myRow2 + aMatrix.myRow2;
-		tempMatrix.myRow3 = this->myRow3 + aMatrix.myRow3;
-		tempMatrix.myRow4 = this->myRow4 + aMatrix.myRow4;
-		return tempMatrix;
-	}
-	template<class T>
-	inline void Matrix4x4<T>::operator+=(const Matrix4x4<T>& aMatrix)
-	{
-		*this = (*this) + aMatrix;
-	}
-	template<class T>
-	inline Matrix4x4<T> Matrix4x4<T>::operator-(const Matrix4x4<T>& aMatrix)
-	{
-		Matrix4x4<T> tempMatrix;
-		tempMatrix.myRow1 = this->myRow1 - aMatrix.myRow1;
-		tempMatrix.myRow2 = this->myRow2 - aMatrix.myRow2;
-		tempMatrix.myRow3 = this->myRow3 - aMatrix.myRow3;
-		tempMatrix.myRow4 = this->myRow4 - aMatrix.myRow4;
-		return tempMatrix;
-	}
-	template<class T>
-	inline void Matrix4x4<T>::operator-=(const Matrix4x4<T>& aMatrix)
-	{
-		*this = (*this) - aMatrix;
-	}
-	template<class T>
-	inline Matrix4x4<T> Matrix4x4<T>::operator*(const Matrix4x4<T>& aMatrix)
-	{
-		Vector4<T> column1(aMatrix.myRow1.x, aMatrix.myRow2.x, aMatrix.myRow3.x, aMatrix.myRow4.x);
-		Vector4<T> column2(aMatrix.myRow1.y, aMatrix.myRow2.y, aMatrix.myRow3.y, aMatrix.myRow4.y);
-		Vector4<T> column3(aMatrix.myRow1.z, aMatrix.myRow2.z, aMatrix.myRow3.z, aMatrix.myRow4.z);
-		Vector4<T> column4(aMatrix.myRow1.w, aMatrix.myRow2.w, aMatrix.myRow3.w, aMatrix.myRow4.w);
-		Matrix4x4<T> tempMatrix;
-		tempMatrix.myRow1.x = myRow1.Dot(column1);
-		tempMatrix.myRow1.y = myRow1.Dot(column2);
-		tempMatrix.myRow1.z = myRow1.Dot(column3);
-		tempMatrix.myRow1.w = myRow1.Dot(column4);
-
-		tempMatrix.myRow2.x = myRow2.Dot(column1);
-		tempMatrix.myRow2.y = myRow2.Dot(column2);
-		tempMatrix.myRow2.z = myRow2.Dot(column3);
-		tempMatrix.myRow2.w = myRow2.Dot(column4);
-
-		tempMatrix.myRow3.x = myRow3.Dot(column1);
-		tempMatrix.myRow3.y = myRow3.Dot(column2);
-		tempMatrix.myRow3.z = myRow3.Dot(column3);
-		tempMatrix.myRow3.w = myRow3.Dot(column4);
-
-		tempMatrix.myRow4.x = myRow4.Dot(column1);
-		tempMatrix.myRow4.y = myRow4.Dot(column2);
-		tempMatrix.myRow4.z = myRow4.Dot(column3);
-		tempMatrix.myRow4.w = myRow4.Dot(column4);
-
-		return tempMatrix;
-	}
-	template<class T>
-	inline void Matrix4x4<T>::operator*=(const Matrix4x4<T>& aMatrix)
-	{
-		*this = (*this) * aMatrix;
-	}
-	template<class T>
-	inline void Matrix4x4<T>::operator=(const Matrix4x4<T>& aMatrix)
-	{
-		myRow1 = aMatrix.myRow1;
-		myRow2 = aMatrix.myRow2;
-		myRow3 = aMatrix.myRow3;
-		myRow4 = aMatrix.myRow4;
-	}
-	template<class T>
-	inline bool operator==(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1)
-	{
-		if (aMatrix0(1, 1) == aMatrix1(1, 1) && aMatrix0(1, 2) == aMatrix1(1, 2) && aMatrix0(1, 3) == aMatrix1(1, 3) && aMatrix0(1, 4) == aMatrix1(1, 4) &&
-			aMatrix0(2, 1) == aMatrix1(2, 1) && aMatrix0(2, 2) == aMatrix1(2, 2) && aMatrix0(2, 3) == aMatrix1(2, 3) && aMatrix0(2, 4) == aMatrix1(2, 4) &&
-			aMatrix0(3, 1) == aMatrix1(3, 1) && aMatrix0(3, 2) == aMatrix1(3, 2) && aMatrix0(3, 3) == aMatrix1(3, 3) && aMatrix0(3, 4) == aMatrix0(3, 4) &&
-			aMatrix0(4, 1) == aMatrix1(4, 1) && aMatrix0(4, 2) == aMatrix1(4, 2) && aMatrix0(4, 3) == aMatrix1(4, 3) && aMatrix0(4, 4) == aMatrix0(4, 4))
+		const Matrix4x4<T> matrix0Original = aMatrix0;
+		for (int row = 1; row <= 4; row++)
 		{
-			return true;
-		}
-		else
-		{
-			return false;
+			for (int col = 1; col <= 4; col++)
+			{
+				T sum = 0;
+				for (int i = 1; i <= 4; i++)
+				{
+					sum += matrix0Original(row, i) * aMatrix1(i, col);
+				}
+				aMatrix0(row, col) = sum;
+			}
 		}
 	}
-	template<class T>
-	inline Vector4<T> operator*(const Vector4<T>& aVector, const Matrix4x4<T>& aMatrix)
-	{
-		Vector4<T> column1(aMatrix(1, 1), aMatrix(2, 1), aMatrix(3, 1), aMatrix(4, 1));
-		Vector4<T> column2(aMatrix(1, 2), aMatrix(2, 2), aMatrix(3, 2), aMatrix(4, 2));
-		Vector4<T> column3(aMatrix(1, 3), aMatrix(2, 3), aMatrix(3, 3), aMatrix(4, 3));
-		Vector4<T> column4(aMatrix(1, 4), aMatrix(2, 4), aMatrix(3, 4), aMatrix(4, 4));
 
-		return Vector4<T>(aVector.Dot(column1), aVector.Dot(column2), aVector.Dot(column3), aVector.Dot(column4));
+	template <class T>
+	void operator*=(Vector4<T>& aVector, const Matrix4x4<T>& aMatrix)
+	{
+		const Vector4<T> vectorOriginal = aVector;
+		for (int col = 1; col <= 4; col++)
+		{
+			T sum = 0;
+			for (int i = 1; i <= 4; i++)
+			{
+				sum += vectorOriginal[i - 1] * aMatrix(i, col);
+			}
+			aVector[col - 1] = sum;
+		}
+	}
+
+	template <class T>
+	void operator*=(Matrix4x4<T>& aMatrix, const T aScalar)
+	{
+		for (int row = 1; row <= 4; row++)
+		{
+			for (int col = 1; col <= 4; col++)
+			{
+				aMatrix(row, col) *= aScalar;
+			}
+		}
+	}
+
+	template <class T>
+	Matrix4x4<T>& Matrix4x4<T>::operator=(const Matrix4x4<T>& aMatrix)
+	{
+		for (int row = 1; row <= 4; row++)
+		{
+			for (int col = 1; col <= 4; col++)
+			{
+				(*this)(row, col) = aMatrix(row, col);
+			}
+		}
+
+		return *this;
+	}
+
+	template <class T>
+	bool operator==(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1)
+	{
+		for (int row = 1; row <= 4; row++)
+		{
+			for (int col = 1; col <= 4; col++)
+			{
+				if (abs(aMatrix0(row, col) - aMatrix1(row, col)) > 0.01f)
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	template <class T>
+	bool operator!=(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1)
+	{
+		return !(aMatrix0 == aMatrix1);
+	}
+
+	template <class T>
+	T Matrix4x4<T>::Minor(const int aX, const int aY) const
+	{
+		Matrix3x3<T> result;
+
+		for (int outY = 1; outY <= 3; outY++)
+		{
+			int inY = outY;
+			if (outY >= aY)
+			{
+				inY++;
+			}
+			for (int outX = 1; outX <= 3; outX++)
+			{
+				int inX = outX;
+				if (outX >= aX)
+				{
+					inX++;
+				}
+
+				result(outY, outX) = (*this)(inY, inX);
+			}
+		}
+
+		return result.Determinant();
+	}
+
+	template <class T>
+	T Matrix4x4<T>::Cofactor(const int aX, const int aY) const
+	{
+		T result = Minor(aX, aY);
+
+		if ((((aX - 1) ^ (aY - 1)) & 1) > 0)
+		{
+			result = -result;
+		}
+
+		return result;
+	}
+
+	template <class T>
+	T Matrix4x4<T>::Determinant() const
+	{
+		T result = 0;
+
+		for (int i = 1; i <= 4; i++)
+		{
+			result += (*this)(1, i) * Cofactor(i, 1);
+		}
+
+		return result;
+	}
+
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::Cofactors() const
+	{
+		Matrix4x4<T> result;
+
+		for (unsigned int y = 1; y <= 4; y++)
+		{
+			for (unsigned int x = 1; x <= 4; x++)
+			{
+				result(y, x) = Cofactor(x, y);
+			}
+		}
+
+		return result;
+	}
+
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::Adjoint() const
+	{
+		return Matrix4x4<T>::Transpose(Cofactors());
+	}
+
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::Inverse() const
+	{
+		return Adjoint() * (1 / Determinant());
+	}
+
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::CreateTranslation(const Vector3<T>& aPosition)
+	{
+		const Vector3<T>& p = aPosition;
+		return Matrix4x4<T>(
+			1, 0, 0, 0,
+			0, 1, 0, 0,
+			0, 0, 1, 0,
+			p.x, p.y, p.z, 1
+			);
+	}
+
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::CreateRotation(const Vector3<T>& aRotation)
+	{
+		return CreateRotationAroundZ(aRotation.z) * CreateRotationAroundX(aRotation.x) * CreateRotationAroundY(aRotation.y);
+	}
+
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::CreateScale(const Vector3<T>& aScale)
+	{
+		const Vector3<T>& s = aScale;
+		return Matrix4x4<T>(
+			s.x, 0, 0, 0,
+			0, s.y, 0, 0,
+			0, 0, s.z, 0,
+			0, 0, 0, 1
+			);
+	}
+
+	template <class T>
+	Matrix4x4<T> Matrix4x4<T>::TRS(const Vector3<T>& aTranslation, const Vector3<T>& aRotation, const Vector3<T>& aScale)
+	{
+		return CreateScale(aScale) * CreateRotation(aRotation) * CreateTranslation(aTranslation);
 	}
 }
+
+namespace CU = CommonUtilities;

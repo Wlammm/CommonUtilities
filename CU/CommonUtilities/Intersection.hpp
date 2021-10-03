@@ -5,26 +5,12 @@
 #include "Sphere.hpp"
 #include "Ray.hpp"
 #include "Vector3.hpp"
+#include "Triangle.hpp"
+#include "Maths.hpp"
+#include <array>
 
 namespace CommonUtilities
 {
-	// If the ray is parallel to the plane, aOutIntersectionPoint remains unchanged. If
-	// the ray is in the plane, true is returned, if not, false is returned. If the ray
-	// isn't parallel to the plane, the intersection point is stored in
-	// aOutIntersectionPoint and true returned.
-	template <typename T>
-	bool IntersectionPlaneRay(const Plane<T>& aPlane, const Ray<T>& aRay, Vector3<T>& aOutIntersectionPoint);
-
-	// If the ray intersects the AABB, true is returned, if not, false is returned.
-	// A ray in one of the AABB's sides is counted as intersecting it.
-	template <typename T>
-	bool IntersectionAABBRay(const AABB3D<T>& aAABB, const Ray<T>& aRay);
-
-	// If the ray intersects the sphere, true is returned, if not, false is returned.
-	// A rat intersecting the surface of the sphere is considered as intersecting it.
-	template <typename T>
-	bool IntersectionSphereRay(const Sphere<T>& aSphere, const Ray<T>& aRay);
-
 	template<typename T>
 	bool IntersectionPlaneRay(const Plane<T>& aPlane, const Ray<T>& aRay, Vector3<T>& aOutIntersectionPoint)
 	{
@@ -134,6 +120,92 @@ namespace CommonUtilities
 			return true; // INSIDE
 		}
 		return true;
+	}
+
+	template<typename T>
+	bool IntersectionTriangleRay(const Triangle<T>& aTriangle, const Ray<T>& aRay, const CU::Vector3f& outVector)
+	{
+		const float EPSILON = 0.0000001f;
+
+		Vector3f vertex0 = aTriangle.GetPoint1();
+		Vector3f vertex1 = aTriangle.GetPoint2();;
+		Vector3f vertex2 = aTriangle.GetPoint3();
+		Vector3f edge1, edge2, h, s, q;
+		float a, f, u, v;
+
+		edge1 = vertex1 - vertex0;
+		edge2 = vertex2 - vertex0;
+
+		h = aRay.GetDirection().Cross(edge2);
+		a = edge1.Dot(h);
+
+		if (a > -EPSILON && a < EPSILON)
+			return false;
+
+		f = 1.0f / a;
+		s = aRay.GetOrigin() - vertex0;
+		u = f * s.Dot(h);
+
+		if (u < 0.0f || u > 1.0f)
+			return false;
+
+		q = s.Cross(edge1);
+		v = f * aRay.GetDirection().Dot(q);
+
+		if (v < 0.0f || u + v > 1.0f)
+			return false;
+
+		float t = f * edge2.Dot(q);
+		if (t > EPSILON)
+		{
+			outVector = aRay.GetOrigin() + aRay.GetDirection() * t;
+			return true;
+		}
+		else
+			return false;
+	}
+
+	template<typename T>
+	bool IntersectionTriangleRay(const std::array<Vector3<T>, 3>& aTriangleVertices, const Ray<T>& aRay, CU::Vector3f& outVector)
+	{
+		const float EPSILON = 0.0000001f;
+
+		Vector3f vertex0 = aTriangleVertices[0];
+		Vector3f vertex1 = aTriangleVertices[1];
+		Vector3f vertex2 = aTriangleVertices[2];
+		Vector3f edge1, edge2, h, s, q;
+		float a, f, u, v;
+
+		edge1 = vertex1 - vertex0;
+		edge2 = vertex2 - vertex0;
+
+		h = aRay.GetDirection().Cross(edge2);
+		a = edge1.Dot(h);
+
+		if (a > -EPSILON && a < EPSILON)
+			return false;
+
+		f = 1.0f / a;
+		s = aRay.GetOrigin() - vertex0;
+		u = f * s.Dot(h);
+
+		if (u < 0.0f || u > 1.0f)
+			return false;
+
+		q = s.Cross(edge1);
+		v = f * aRay.GetDirection().Dot(q);
+
+		if (v < 0.0f || u + v > 1.0f)
+			return false;
+
+		float t = f * edge2.Dot(q);
+		if (t > EPSILON)
+		{
+			outVector = aRay.GetOrigin() + aRay.GetDirection() * t;
+			return true;
+		}
+		else
+			return false;
 	}
 }
 
