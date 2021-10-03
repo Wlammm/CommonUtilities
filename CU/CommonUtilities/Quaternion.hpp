@@ -2,6 +2,7 @@
 #include "Vector3.hpp"
 #include "Matrix3x3.hpp"
 #include "Matrix4x4.hpp"
+#include "Constants.hpp"
 
 namespace CommonUtilities
 {
@@ -122,7 +123,7 @@ namespace CommonUtilities
             {
                 return Vector3<T>(
                     0,
-                    m[2] < 0 ? static_cast<T>(0.5 * M_PI) : static_cast<T>(-0.5 * M_PI),
+                    m[2] < 0 ? static_cast<T>(0.5 * PI) : static_cast<T>(-0.5 * PI),
                     -std::atan2(m[3], m[4]));
             }
             else

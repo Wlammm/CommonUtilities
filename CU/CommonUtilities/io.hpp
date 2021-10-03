@@ -28,27 +28,27 @@ inline std::ostream& operator<<(std::ostream& os, const CU::Vector4<T>& aVector)
 template<typename T>
 inline std::ostream& operator<<(std::ostream& os, const CU::Matrix2x2<T>& aMatrix)
 {
-	os << "(" << aMatrix(0, 0) << ", " << aMatrix(0, 1) << 
-		 "\n" << aMatrix(1, 0) << ", " aMatrix(1, 1) << ")";
+	os  << "(" << aMatrix(1, 1) << ", " << aMatrix(1, 2) << 
+		 " | " << aMatrix(2, 1) << ", " << aMatrix(2, 2) << ")";
 	return os;
 }
 
 template<typename T>
 inline std::ostream& operator<<(std::ostream& os, const CU::Matrix3x3<T>& aMatrix)
 {
-	os << "(" << aMatrix(0, 0) << ", " << aMatrix(0, 1) << ", " << aMatrix(0, 2) << 
-		 "\n" << aMatrix(1, 0) << ", " << aMatrix(1, 1) << ", " << aMatrix(1, 2) <<
-		 "\n" << aMatrix(2, 0) << ", " << aMatrix(2, 1) << ", " << aMatrix(2, 2) << ")";
+	os << "("  << aMatrix(1, 1) << ", " << aMatrix(1, 2) << ", " << aMatrix(1, 3) << 
+		 " | " << aMatrix(2, 1) << ", " << aMatrix(2, 2) << ", " << aMatrix(2, 3) <<
+		 " | " << aMatrix(3, 1) << ", " << aMatrix(3, 2) << ", " << aMatrix(3, 3) << ")";
 	return os;
 }
 
 template<typename T>
 inline std::ostream& operator<<(std::ostream& os, const CU::Matrix4x4<T>& aMatrix)
 {
-	os << "(" << aMatrix(0, 0) << ", " << aMatrix(0, 1) << ", " << aMatrix(0, 2) << ", " << aMatrix(0, 3) << 
-		 "\n" << aMatrix(1, 0) << ", " << aMatrix(1, 1) << ", " << aMatrix(1, 2) << ", " << aMatrix(1, 3) << 
-		 "\n" << aMatrix(2, 0) << ", " << aMatrix(2, 1) << ", " << aMatrix(2, 2) << ", " << aMatrix(2, 3) << 
-		 "\n" << aMatrix(3, 0) << ", " << aMatrix(3, 1) << ", " << aMatrix(3, 2) << ", " << aMatrix(3, 3) << ")";
+	os << "("  << aMatrix(1, 1) << ", " << aMatrix(1, 2) << ", " << aMatrix(1, 3) << ", " << aMatrix(1, 4) << 
+		 " | " << aMatrix(2, 1) << ", " << aMatrix(2, 2) << ", " << aMatrix(2, 3) << ", " << aMatrix(2, 4) << 
+		 " | " << aMatrix(3, 1) << ", " << aMatrix(3, 2) << ", " << aMatrix(3, 3) << ", " << aMatrix(3, 4) << 
+		 " | " << aMatrix(4, 1) << ", " << aMatrix(4, 2) << ", " << aMatrix(4, 3) << ", " << aMatrix(4, 4) << ")";
 	return os;
 }
 

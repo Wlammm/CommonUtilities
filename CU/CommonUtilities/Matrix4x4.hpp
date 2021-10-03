@@ -54,12 +54,11 @@ namespace CommonUtilities
 	};
 
 	template <class T>
-	bool operator==(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1);
+	[[nodiscard]] bool operator==(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1);
 	template <class T>
-	bool operator!=(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1);
+	[[nodiscard]] bool operator!=(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1);
 
 	using Matrix4x4f = Matrix4x4<float>;
-	using Matrix4f = Matrix4x4<float>;
 }
 
 namespace CommonUtilities
@@ -105,18 +104,25 @@ namespace CommonUtilities
 	template <class T>
 	T& Matrix4x4<T>::operator()(const int aRow, const int aColumn)
 	{
+		assert(aRow > 0 && aRow < 5 && "Out of range.");
+		assert(aColumn > 0 && aColumn < 5 && "Out of range.");
 		return myData[aRow - 1][aColumn - 1];
 	}
 
 	template <class T>
 	const T& Matrix4x4<T>::operator()(const int aRow, const int aColumn) const
 	{
+		assert(aRow > 0 && aRow < 5 && "Out of range.");
+		assert(aColumn > 0 && aColumn < 5 && "Out of range.");
+
 		return myData[aRow - 1][aColumn - 1];
 	}
 
 	template <class T>
 	void Matrix4x4<T>::SetRow(const int aRow, const Vector4<T>& aValue)
 	{
+		assert(aRow > 0 && aRow < 5 && "Out of range.");
+
 		(*this)(aRow, 1) = aValue.x;
 		(*this)(aRow, 2) = aValue.y;
 		(*this)(aRow, 3) = aValue.z;
@@ -126,6 +132,8 @@ namespace CommonUtilities
 	template <class T>
 	void Matrix4x4<T>::SetColumn(const int aColumn, const Vector4<T>& aValue)
 	{
+		assert(aColumn > 0 && aColumn < 5 && "Out of range.");
+		
 		(*this)(1, aColumn) = aValue.x;
 		(*this)(2, aColumn) = aValue.y;
 		(*this)(3, aColumn) = aValue.z;

@@ -1,7 +1,2 @@
 ﻿  Main.cpp
-C:\Users\willi\Documents\GitHub\Engine\CU\CU\CommonUtilities\BSTSet.hpp(82,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\willi\Documents\GitHub\Engine\CU\CU\CommonUtilities\BSTSet.hpp(66): message : while compiling class template member function 'void CommonUtilities::BSTSet<int>::DSWBalance(void)'
-C:\Users\willi\Documents\GitHub\Engine\CU\CU\Custom Library\Main.cpp(46): message : see reference to function template instantiation 'void CommonUtilities::BSTSet<int>::DSWBalance(void)' being compiled
-C:\Users\willi\Documents\GitHub\Engine\CU\CU\Custom Library\Main.cpp(34): message : see reference to class template instantiation 'CommonUtilities::BSTSet<int>' being compiled
-C:\Users\willi\Documents\GitHub\Engine\CU\CU\CommonUtilities\BSTSet.hpp(137): warning C4715: 'CommonUtilities::BSTSet<int>::HasElement': not all control paths return a value
   Custom Library.vcxproj -> C:\Users\willi\Documents\GitHub\Engine\CU\CU\x64\Debug\Custom Library.exe

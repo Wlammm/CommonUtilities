@@ -245,16 +245,20 @@
     <ClInclude Include="AABB3D.hpp" />
     <ClInclude Include="BSTNode.hpp" />
     <ClInclude Include="BSTSet.hpp" />
+    <ClInclude Include="Constants.hpp" />
     <ClInclude Include="DoublyLinkedList.hpp" />
     <ClInclude Include="DoublyLinkedListNode.hpp" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GrowingArray.hpp" />
     <ClInclude Include="Heap.hpp" />
+    <ClInclude Include="HLSLMappings.hpp" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Intersection.hpp" />
+    <ClInclude Include="io.hpp" />
     <ClInclude Include="Line.hpp" />
     <ClInclude Include="LineVolume.hpp" />
     <ClInclude Include="Maths.h" />
+    <ClInclude Include="Matrix.hpp" />
     <ClInclude Include="Matrix2x2.hpp" />
     <ClInclude Include="Matrix3x3.hpp" />
     <ClInclude Include="Matrix4x4.hpp" />
@@ -268,11 +272,11 @@
     <ClInclude Include="Sphere.hpp" />
     <ClInclude Include="Stack.hpp" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="Vector.h" />
+    <ClInclude Include="Triangle.hpp" />
+    <ClInclude Include="Vector.hpp" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />
     <ClInclude Include="Vector4.hpp" />
-    <ClInclude Include="VectorOnStack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommonUtilities.cpp" />

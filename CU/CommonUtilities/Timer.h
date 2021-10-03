@@ -3,25 +3,25 @@
 
 namespace CommonUtilities
 {
-class Timer
-{
-public:
-	Timer();
-	Timer(const Timer& aTimer) = delete;
-	Timer& operator=(const Timer& aTimer) = delete;
+	class Timer
+	{
+	public:
+		Timer();
+		Timer(const Timer& aTimer) = delete;
+		Timer& operator=(const Timer& aTimer) = delete;
 
-	void Update();
+		void Update();
 
-	float GetDeltaTime() const;
-	double GetTotalTime() const;
+		float GetDeltaTime() const;
+		double GetTotalTime() const;
 
-private:
+	private:
 
-	std::chrono::high_resolution_clock myClock{};
-	std::chrono::high_resolution_clock::time_point myUpdateStart;
-	double myTotalTime = 0;
-	float myDeltaTime = 0;
-};
+		std::chrono::high_resolution_clock myClock{};
+		std::chrono::high_resolution_clock::time_point myUpdateStart;
+		double myTotalTime = 0;
+		float myDeltaTime = 0;
+	};
 }
 
 namespace CU = CommonUtilities;

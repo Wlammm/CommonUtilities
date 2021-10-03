@@ -15,19 +15,16 @@ namespace CommonUtilities
 		//Returnerar antal element i stacken
 		int GetSize() const;
 
-		//Returnerar det översta elementet i stacken. Kraschar med en assert om
-		//stacken är tom.
+		//Returnerar det översta elementet i stacken.
 		const T& GetTop() const;
 
-		//Returnerar det översta elementet i stacken. Kraschar med en assert om
-		//stacken är tom.
+		//Returnerar det översta elementet i stacken.
 		T& GetTop();
 
 		//Lägger in ett nytt element överst på stacken
 		void Push(const T& aValue);
 
-		//Tar bort det översta elementet från stacken och returnerar det. Kraschar
-		//med en assert om stacken är tom.
+		//Tar bort det översta elementet från stacken och returnerar det.
 		T Pop();
 
 	private:

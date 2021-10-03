@@ -24,9 +24,6 @@
     <ClInclude Include="Maths.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VectorOnStack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -36,7 +33,7 @@
     <ClInclude Include="Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vector.h">
+    <ClInclude Include="Vector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Line.hpp">
@@ -106,6 +103,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Matrix2x2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HLSLMappings.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="io.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
