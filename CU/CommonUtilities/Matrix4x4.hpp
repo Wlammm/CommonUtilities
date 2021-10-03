@@ -59,6 +59,7 @@ namespace CommonUtilities
 	bool operator!=(const Matrix4x4<T>& aMatrix0, const Matrix4x4<T>& aMatrix1);
 
 	using Matrix4x4f = Matrix4x4<float>;
+	using Matrix4f = Matrix4x4<float>;
 }
 
 namespace CommonUtilities
