@@ -147,7 +147,7 @@ namespace CommonUtilities
 			float sum = 0;
 			for (int i = 0; i < size; ++i)
 			{
-				sum += pow(Element(i), 2);
+				sum += powf(Element(i), 2);
 			}
 			return sqrt(sum);
 		}

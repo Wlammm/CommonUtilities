@@ -52,12 +52,11 @@ namespace CommonUtilities
 	}
 
 	template<typename T>
-	void Swap(T& aFirst, T& aSecond)
+	void Swap(T& a, T& b)
 	{
-		T first = aFirst;
-
-		aFirst = aSecond;
-		aSecond = first;
+		T temp = a;
+		a = b;
+		b = temp;
 	}
 
 	template<typename T>
@@ -100,7 +99,11 @@ namespace CommonUtilities
 		return static_cast<T>(static_cast<int>(aVal));
 	}
 
-
+	template<typename T>
+	bool AreEqual(T a, T b, T aTolerance)
+	{
+		return Abs(a - b) <= aTolerance;
+	}
 }
 
 namespace CU = CommonUtilities;

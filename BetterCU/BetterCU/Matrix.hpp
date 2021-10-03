@@ -194,26 +194,24 @@ namespace CommonUtilities
 			return newMatrix;
 		}
 
-		template<int size, typename T = float>
-		using SquareMatrix = Matrix<size, size, T>;
-
-		template<int size, typename T = float>
-		static SquareMatrix<size, T> IdentityMatrix()
+		static Matrix<rows, columns, T> IdentityMatrix()
 		{
-			SquareMatrix<size, T> matrix{};
-			for (size_t i{ 0 }; i < size; ++i)
+			assert(rows == columns && "Only works for square matrixes.");
+
+			Matrix<rows, rows, T> matrix{};
+			for (size_t i{ 0 }; i < rows; ++i)
 			{
 				matrix[i][i] = 1;
 			}
 			return matrix;
 		}
 
-		template<int size, typename T = float>
-		static SquareMatrix<size, T> CreateRotationAroundX(const T& anAngleInRadians)
+		static Matrix<rows, columns, T> CreateRotationAroundX(const T& anAngleInRadians)
 		{
-			assert(size > 2 && size < 5 && "Rotation only works for 3x3 and 4x4 matrixes");
+			assert(rows > 2 && rows < 5 && "Rotation only works for 3x3 and 4x4 matrixes");
+			assert(rows == columns && "Only works for square matrixes.");
 
-			SquareMatrix<size> tempMatrix;
+			Matrix<rows, rows, T> tempMatrix;
 			tempMatrix(1, 1) = cos(anAngleInRadians);
 			tempMatrix(1, 2) = sin(anAngleInRadians);
 
@@ -223,12 +221,12 @@ namespace CommonUtilities
 			return tempMatrix;
 		}
 
-		template<int size, typename T = float>
-		static SquareMatrix<size, T> CreateRotationAroundY(const T& anAngleInRadians)
+		static Matrix<rows, columns, T> CreateRotationAroundY(const T& anAngleInRadians)
 		{
-			assert(size > 2 && size < 5 && "Rotation only works for 3x3 and 4x4 matrixes");
+			assert(rows > 2 && rows < 5 && "Rotation only works for 3x3 and 4x4 matrixes");
+			assert(rows == columns && "Only works for square matrixes.");
 
-			SquareMatrix<size> tempMatrix;
+			Matrix<rows, rows, T> tempMatrix;
 			tempMatrix(0, 0) = cos(anAngleInRadians);
 			tempMatrix(0, 2) = -sin(anAngleInRadians);
 
@@ -238,12 +236,12 @@ namespace CommonUtilities
 			return tempMatrix;
 		}
 
-		template<int size, typename T = float>
-		static SquareMatrix<size, T> CreateRotationAroundZ(const T& anAngleInRadians)
+		static Matrix<rows, columns, T> CreateRotationAroundZ(const T& anAngleInRadians)
 		{
-			assert(size > 2 && size < 5 && "Rotation only works for 3x3 and 4x4 matrixes");
+			assert(rows > 2 && rows < 5 && "Rotation only works for 3x3 and 4x4 matrixes");
+			assert(rows == columns && "Only works for square matrixes.");
 
-			SquareMatrix<size> tempMatrix;
+			Matrix<rows, rows, T> tempMatrix;
 			tempMatrix(0, 0) = cos(anAngleInRadians);
 			tempMatrix(0, 1) = sin(anAngleInRadians);
 

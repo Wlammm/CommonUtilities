@@ -2,6 +2,7 @@
 #include "..\BetterCU\Vector.h"
 #include "..\BetterCU\Vector3.hpp"
 #include "..\BetterCU\Math.hpp"
+#include "..\BetterCU\Vector2.hpp"
 #include "Matrix.hpp"
 
 #pragma region Vector
@@ -117,6 +118,27 @@ TEST(Vector3, Reflect)
 	EXPECT_EQ(1, vec.X());
 	EXPECT_EQ(1, vec.Y());
 	EXPECT_EQ(0, vec.Z());
+}
+
+TEST(Vector3, EqualsOperator)
+{
+	CU::Vector3f vec = { 1, 2, 3 };
+
+	CU::Vector3f vec1 = vec;
+	EXPECT_TRUE(true);
+}
+
+#pragma endregion
+
+#pragma region Vector2
+
+TEST(Vector2, EqualsOperator)
+{
+	CU::Vector2f vec = { 2, 2 };
+	const CU::Vector2f& vec1 = vec;
+
+	CU::Vector2f vec2 = vec1;
+	EXPECT_TRUE(true);
 }
 
 #pragma endregion
@@ -376,7 +398,7 @@ TEST(Matrix, MultiplyMatrixOperator)
 TEST(Matrix, IdentityMatrix)
 {
 	CU::Matrix3x3<float> mat;
-	auto mat1 = CU::Matrix3x3<float>::IdentityMatrix<3>();
+	auto mat1 = CU::Matrix3x3<float>::IdentityMatrix();
 
 	EXPECT_EQ(mat1(0, 0), 1);
 	EXPECT_EQ(mat1(1, 1), 1);
@@ -384,7 +406,7 @@ TEST(Matrix, IdentityMatrix)
 	EXPECT_EQ(mat1(0, 1), 0);
 
 	CU::Matrix<10, 10, float> mat10;
-	auto mat11 = CU::Matrix<10, 10, float>::IdentityMatrix<10>();
+	auto mat11 = CU::Matrix<10, 10, float>::IdentityMatrix();
 	EXPECT_EQ(mat11(0, 0), 1);
 	EXPECT_EQ(mat11(1, 1), 1);
 	EXPECT_EQ(mat11(2, 2), 1);
@@ -404,7 +426,7 @@ TEST(Matrix, RotationAroundX)
 	CU::Matrix3x3<float> mat;
 	mat(1, 1) = 1;
 
-	mat = mat * CU::Matrix<3, 3, float>::CreateRotationAroundX<3>(3.14f);
+	mat = mat * CU::Matrix<3, 3, float>::CreateRotationAroundX(3.14f);
 	EXPECT_TRUE(true);
 }
 
