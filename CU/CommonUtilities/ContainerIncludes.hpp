@@ -5,3 +5,4 @@
 #include "BSTSet.hpp"
 #include "Heap.hpp"
 #include "Queue.hpp"
+#include "Stack.hpp"

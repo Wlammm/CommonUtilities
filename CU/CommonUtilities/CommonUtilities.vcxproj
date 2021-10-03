@@ -246,9 +246,12 @@
     <ClInclude Include="BSTNode.hpp" />
     <ClInclude Include="BSTSet.hpp" />
     <ClInclude Include="Constants.hpp" />
+    <ClInclude Include="ContainerIncludes.hpp" />
     <ClInclude Include="DoublyLinkedList.hpp" />
     <ClInclude Include="DoublyLinkedListNode.hpp" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="IntersectionIncludes.hpp" />
+    <ClInclude Include="MathIncludes.hpp" />
     <ClInclude Include="GrowingArray.hpp" />
     <ClInclude Include="Heap.hpp" />
     <ClInclude Include="HLSLMappings.hpp" />

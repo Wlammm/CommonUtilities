@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Includes">
+      <UniqueIdentifier>{7c27abb1-394a-43d8-90c7-3c573499b40f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -119,6 +122,15 @@
     </ClInclude>
     <ClInclude Include="Constants.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MathIncludes.hpp">
+      <Filter>Header Files\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="IntersectionIncludes.hpp">
+      <Filter>Header Files\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="ContainerIncludes.hpp">
+      <Filter>Header Files\Includes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
